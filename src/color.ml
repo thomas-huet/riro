@@ -1,7 +1,7 @@
 let show (r, g, b) = Printf.sprintf "#%02x%02x%02x" r g b
 
 let colors =[|
-224, 0, 0;
+255, 0, 0;
 0, 224, 0;
 0, 0, 224;
 224, 224, 0;
