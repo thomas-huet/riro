@@ -95,8 +95,23 @@ let find_solution position depth =
   in
   explore ()
 
-let exists_path position =
-  true (* TODO *)
+let no_fences position =
+  let height = Array.length position.grid in
+  let width = Array.length position.grid.(0) in
+  let grid = Array.map Array.copy position.grid in
+  let q = Queue.create () in
+  Queue.push position.target q;
+  while not (Queue.is_empty q) do
+    let i, j = Queue.pop q in
+    if i >= 0 && i < height && j >= 0 && j < width && grid.(i).(j) <> Wall then begin
+      grid.(i).(j) <- Wall;
+      Queue.push (i + 1, j) q;
+      Queue.push (i - 1, j) q;
+      Queue.push (i, j + 1) q;
+      Queue.push (i, j - 1) q;
+    end
+  done;
+  Array.fold_right (Array.fold_right (fun c b -> c = Wall && b)) grid true
 
 let () = Random.self_init ()
 
@@ -122,7 +137,7 @@ let rec generate opts =
   in
   let robots = Array.init opts.num_robots place_robot in
   let position = { grid; target; robots } in
-  if exists_path position
+  if no_fences position
   && find_solution position (opts.min_num_moves - 1) = None then
     position
   else
