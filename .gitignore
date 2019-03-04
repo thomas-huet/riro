@@ -1,8 +1,0 @@
-.merlin
-.bsb.lock
-npm-debug.log
-package-lock.json
-/build/
-/lib/bs/
-/node_modules/
-*.bs.js
