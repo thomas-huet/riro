@@ -1,7 +1,7 @@
 open Game;
 
 let string = string_of_float;
-  
+
 let render = (board_state) => {
   let height = Array.length(board_state.grid);
   let width = Array.length(board_state.grid[0]);
@@ -16,10 +16,10 @@ let render = (board_state) => {
       <g> ...walls </g>
     </g>
   };
-  let robots = Array.mapi((i, (y, x)) => <rect x={string(float(x) +. 0.1)} y={string(float(y) +. 0.1)} height="0.8" width="0.8" fill={i == 0 ? "red" : "blue"}/>, board_state.robots);
+  let robots = Array.mapi((i, (y, x)) => <rect x={string(float(x) +. 0.1)} y={string(float(y) +. 0.1)} height="0.8" width="0.8" fill={Color.get(Array.length(board_state.robots),i)}/>, board_state.robots);
   let target = {
     let (y, x) = board_state.target;
-    <rect x={string(float(x) +. 0.05)} y ={string(float(y) +. 0.05)} height="0.9" width="0.9" stroke="red" strokeWidth="0.1" fill="none"/>
+    <rect x={string(float(x) +. 0.05)} y ={string(float(y) +. 0.05)} height="0.9" width="0.9" stroke="#e00000" strokeWidth="0.1" fill="none"/>
   };
   <svg viewBox={"-0.1 -0.1 " ++ string(float(width) +. 0.2) ++ " " ++ string(float(height) +. 0.2)} xmlns="http://www.w3.org/2000/svg">
     target
