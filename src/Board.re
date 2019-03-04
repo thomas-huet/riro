@@ -6,10 +6,11 @@ let render = (board_state) => {
   let height = Array.length(board_state.grid);
   let width = Array.length(board_state.grid[0]);
   let grid = {
-    let vertical = Array.init(width + 1, (i) => <line x1={string_of_int(i)} y1 ="-0.025" x2={string_of_int(i)} y2={string(float(height) +. 0.025)} stroke="black" strokeWidth="0.05"/>);
-    let horizontal = Array.init(height + 1, (i) => <line x1="-0.025" y1 ={string_of_int(i)} x2={string(float(width) +. 0.025)} y2={string_of_int(i)} stroke="black" strokeWidth="0.05"/>);
+    let vertical = Array.init(width + 1, (i) => <line x1={string_of_int(i)} y1 ="0" x2={string_of_int(i)} y2={string_of_int(height)} stroke="black" strokeWidth="0.02"/>);
+    let horizontal = Array.init(height + 1, (i) => <line x1="0" y1 ={string_of_int(i)} x2={string_of_int(width)} y2={string_of_int(i)} stroke="black" strokeWidth="0.02"/>);
     let walls = Array.map(((y, x)) => <rect x={string_of_int(x)} y={string_of_int(y)} height="1" width="1"/>, Game.get_walls(board_state.grid));
     <g>
+      <rect x="0" y="0" height={string_of_int(height)} width={string_of_int(width)} stroke="black" strokeWidth="0.05" fill="none"/>
       <g> ...vertical </g>
       <g> ...horizontal </g>
       <g> ...walls </g>
