@@ -5,6 +5,7 @@ type t = {
   current: position;
   moves: move list;
   options: options;
+  settings_open: bool;
 }
 
 let init position options = {
@@ -12,10 +13,12 @@ let init position options = {
   current = position;
   moves = [];
   options;
+  settings_open = false;
 }
 
 type action =
-| Set_options of options
+| Open_settings
+| Change_settings of options
 | New
 | Restart
 | Move of move

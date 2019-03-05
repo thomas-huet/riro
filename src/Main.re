@@ -7,7 +7,8 @@ let make = (_children) => {
   ...component,
   initialState: () => init(generate(default_options), default_options),
   reducer: (action, state) => switch(action) {
-  | Set_options(opts) => ReasonReact.Update(init(generate(opts), opts))
+  | Open_settings => ReasonReact.Update({...state, settings_open: true})
+  | Change_settings(opts) => ReasonReact.Update({...state, options: opts})
   | New => ReasonReact.Update(init(generate(state.options), state.options))
   | Restart => ReasonReact.Update(init(state.start, state.options))
   | Move(m) => {
@@ -21,10 +22,13 @@ let make = (_children) => {
       }
     }
   },
-  render: self => {
-    <>
-      {Menu.render(self)}
-      {Board.render(self.state.current)}
-    </>
-  }
+  render: ({state, send}) =>
+    if (state.settings_open) {
+      <Settings send=send opts=state.options/>
+    } else {
+      <>
+        <Menu send=send/>
+        <Board board_state=state.current/>
+      </>
+    }
 };
