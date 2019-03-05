@@ -26,9 +26,9 @@ let make = (_children) => {
     if (state.settings_open) {
       <Settings send=send opts=state.options/>
     } else {
-      <>
+      <div id="main">
         <Menu send=send/>
         <Board board_state=state.current/>
-      </>
+      </div>
     }
 };
