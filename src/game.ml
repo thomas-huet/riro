@@ -11,7 +11,7 @@ let default_options = {
   height = 6;
   width = 6;
   num_walls = 4;
-  min_num_moves = 4;
+  min_num_moves = 3;
 }
 
 type cell =

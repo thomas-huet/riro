@@ -14,11 +14,11 @@ let make = (~send, ~opts, _children) => {
     <div id="settings">
       <div className="line">
         <label>{ReasonReact.string("Height:")}</label>
-        <input type_="number" min=2 value={string_of_int(opts.height)} onChange=onHeightChange/>
+        <input type_="number" min=3 value={string_of_int(opts.height)} onChange=onHeightChange/>
       </div>
       <div className="line">
 	<label>{ReasonReact.string("Width:")}</label>
-	<input type_="number" min=2 value={string_of_int(opts.width)} onChange=onWidthChange/>
+	<input type_="number" min=3 value={string_of_int(opts.width)} onChange=onWidthChange/>
       </div>
       <div className="line">
 	<label>{ReasonReact.string("Number of robots:")}</label>
@@ -28,10 +28,10 @@ let make = (~send, ~opts, _children) => {
 	<label>{ReasonReact.string("Number of walls:")}</label>
 	<input type_="number" min=0 max={string_of_int(opts.height * opts.width - opts.num_robots - 1)} value={string_of_int(opts.num_walls)} onChange=onNumWallsChange/>
       </div>
-      <div className="line">
+      /*<div className="line">
 	<label>{ReasonReact.string("Minimum number of moves:")}</label>
 	<input type_="number" min=1 value={string_of_int(opts.min_num_moves)} onChange=onMinNumMovesChange/>
-      </div>
+      </div>*/
       <button onClick={_event => send(New)}> {ReasonReact.string("Apply")} </button>
     </div>
   }
