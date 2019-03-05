@@ -1,0 +1,28 @@
+html, body, #root, #main {
+  height: 100%;
+  margin: 0;
+}
+
+#root {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#menu {
+  height: 2em;
+}
+
+svg {
+  max-height: calc(100% - 2em);
+  max-width: 100%;
+}
+
+#settings {
+  min-width: 30em;
+}
+
+.line {
+  display: flex;
+  justify-content: space-between;
+}
