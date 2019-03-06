@@ -10,7 +10,7 @@ let make = (~send, ~opts, _children) => {
     let onWidthChange = (event) => send(Change_settings({...opts, width: ReactEvent.Form.target(event)##value}));
     let onNumRobotsChange = (event) => send(Change_settings({...opts, num_robots: ReactEvent.Form.target(event)##value}));
     let onNumWallsChange = (event) => send(Change_settings({...opts, num_walls: ReactEvent.Form.target(event)##value}));
-    let onMinNumMovesChange = (event) => send(Change_settings({...opts, min_num_moves: ReactEvent.Form.target(event)##value}));
+    /*let onMinNumMovesChange = (event) => send(Change_settings({...opts, min_num_moves: ReactEvent.Form.target(event)##value}));*/
     <div id="settings">
       <div className="line">
         <label>{ReasonReact.string("Height:")}</label>
