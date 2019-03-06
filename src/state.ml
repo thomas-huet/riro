@@ -3,7 +3,8 @@ open Game
 type t = {
   start: position;
   current: position;
-  moves: move list;
+  selected_robot: int;
+  moves: (int * direction) list;
   options: options;
   settings_open: bool;
 }
@@ -11,6 +12,7 @@ type t = {
 let init position options = {
   start = position;
   current = position;
+  selected_robot = 0;
   moves = [];
   options;
   settings_open = false;
@@ -21,4 +23,5 @@ type action =
 | Change_settings of options
 | New
 | Restart
-| Move of move
+| Select_robot of int
+| Move of direction

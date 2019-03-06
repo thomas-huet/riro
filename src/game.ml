@@ -33,8 +33,6 @@ let coord_of_dir = function
 | Left -> 0, -1
 | Right -> 0, 1
 
-type move = int * direction
-
 let move position (r, d) =
   let height = Array.length position.grid in
   let width = Array.length position.grid.(0) in

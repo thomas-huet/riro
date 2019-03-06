@@ -1,6 +1,11 @@
 open Game;
 open State;
 
+[@bs.val]
+external add_keyboard_event_listener :
+  (string, ReactEvent.Keyboard.t => unit) => unit =
+  "addEventListener";
+
 let component = ReasonReact.reducerComponent("Main");
 
 let make = (_children) => {
@@ -11,24 +16,39 @@ let make = (_children) => {
   | Change_settings(opts) => ReasonReact.Update({...state, options: opts})
   | New => ReasonReact.Update(init(generate(state.options), state.options))
   | Restart => ReasonReact.Update(init(state.start, state.options))
-  | Move(m) => {
+  | Select_robot(r) => ReasonReact.Update({...state, selected_robot: r})
+  | Move(dir) => {
+      let m = (state.selected_robot, dir);
       switch(move(state.current, m)) {
-        | None => ReasonReact.NoUpdate
-        | Some(position) =>
-          ReasonReact.Update({...state,
-            current: position,
-            moves: [m, ...state.moves],
-          })
+      | None => ReasonReact.NoUpdate
+      | Some(position) =>
+        ReasonReact.Update({...state,
+          current: position,
+          moves: [m, ...state.moves],
+        })
       }
     }
   },
+  didMount: ({send}) =>
+    add_keyboard_event_listener("keydown", (event) => {
+      open ReactEvent.Keyboard;
+      if (!altKey(event) && !ctrlKey(event) && !metaKey(event) && !shiftKey(event)) {
+        switch(key(event)) {
+        | "ArrowDown" => send(Move(Down))
+        | "ArrowLeft" => send(Move(Left))
+        | "ArrowRight" => send(Move(Right))
+        | "ArrowUp" => send(Move(Up))
+        | _ => ()
+        }
+      }
+    }),
   render: ({state, send}) =>
     if (state.settings_open) {
       <Settings send=send opts=state.options/>
     } else {
       <div id="main">
         <Menu send=send/>
-        <Board board_state=state.current/>
+        <Board send=send board_state=state.current selected_robot=state.selected_robot/>
       </div>
     }
 };
