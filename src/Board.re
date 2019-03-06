@@ -1,5 +1,4 @@
 open Game;
-open State;
 
 let string = string_of_float;
 
@@ -23,17 +22,16 @@ let make = (~board_state, ~selected_robot, ~send, _children) => {
     };
     let robots =
       Array.mapi(
-        (i, (y, x)) =>
-          <rect x={string(float(x) +. 0.1)} y={string(float(y) +. 0.1)} height="0.8" width="0.8" fill={Color.get(Array.length(board_state.robots),i)} onMouseDown={(_event) => send(Select_robot(i))}/>,
+        (i, (y, x)) => <Robot x=x y=y id=i num_robots={Array.length(board_state.robots)} send_parent=send/>,
         board_state.robots);
     let target = {
       let (y, x) = board_state.target;
       <rect x={string(float(x) +. 0.05)} y ={string(float(y) +. 0.05)} height="0.9" width="0.9" stroke={Color.get(0, 0)} strokeWidth="0.1" fill="none"/>
     };
-    let selection = {
+    let selection = if (selected_robot >= 0) {
       let (y,x) = board_state.robots[selected_robot];
       <circle cx={string(float(x) +. 0.5)} cy={string(float(y) +. 0.5)} r="0.1" fill="white"/>
-    };
+    } else {ReasonReact.null};
     <svg viewBox={"-0.1 -0.1 " ++ string(float(width) +. 0.2) ++ " " ++ string(float(height) +. 0.2)} xmlns="http://www.w3.org/2000/svg">
       target
       grid

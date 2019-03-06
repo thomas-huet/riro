@@ -15,7 +15,7 @@ html, body, #root, #main {
 }
 
 svg {
-  height: calc(100% - 2em);
+  height: calc(100% - 3em);
   max-width: 100%;
 }
 

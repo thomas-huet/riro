@@ -12,7 +12,7 @@ type t = {
 let init position options = {
   start = position;
   current = position;
-  selected_robot = 0;
+  selected_robot = -1;
   moves = [];
   options;
   settings_open = false;
@@ -24,4 +24,4 @@ type action =
 | New
 | Restart
 | Select_robot of int
-| Move of direction
+| Move of (int * direction)

@@ -17,8 +17,8 @@ let make = (_children) => {
   | New => ReasonReact.Update(init(generate(state.options), state.options))
   | Restart => ReasonReact.Update(init(state.start, state.options))
   | Select_robot(r) => ReasonReact.Update({...state, selected_robot: r})
-  | Move(dir) => {
-      let m = (state.selected_robot, dir);
+  | Move((r, dir)) => {
+      let m = (r >= 0 ? r : state.selected_robot, dir);
       switch(move(state.current, m)) {
       | None => ReasonReact.NoUpdate
       | Some(position) =>
@@ -34,10 +34,10 @@ let make = (_children) => {
       open ReactEvent.Keyboard;
       if (!altKey(event) && !ctrlKey(event) && !metaKey(event) && !shiftKey(event)) {
         switch(key(event)) {
-        | "ArrowDown" => send(Move(Down))
-        | "ArrowLeft" => send(Move(Left))
-        | "ArrowRight" => send(Move(Right))
-        | "ArrowUp" => send(Move(Up))
+        | "ArrowDown" => send(Move((-1, Down)))
+        | "ArrowLeft" => send(Move((-1, Left)))
+        | "ArrowRight" => send(Move((-1, Right)))
+        | "ArrowUp" => send(Move((-1, Up)))
         | _ => ()
         }
       }
