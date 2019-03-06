@@ -17,7 +17,9 @@ let make = (_children) => {
   | New => ReasonReact.Update(init(generate(state.options), state.options))
   | Restart => ReasonReact.Update(init(state.start, state.options))
   | Select_robot(r) => ReasonReact.Update({...state, selected_robot: r})
-  | Move((r, dir)) => {
+  | Move((r, dir)) => if (r < 0 && state.selected_robot < 0) {
+      ReasonReact.NoUpdate
+    } else {
       let m = (r >= 0 ? r : state.selected_robot, dir);
       switch(move(state.current, m)) {
       | None => ReasonReact.NoUpdate
@@ -45,6 +47,8 @@ let make = (_children) => {
   render: ({state, send}) =>
     if (state.settings_open) {
       <Settings send=send opts=state.options/>
+    } else if (winning(state.current)) {
+      <EndMenu send=send num_moves={List.length(state.moves)}/>
     } else {
       <div id="main">
         <Menu send=send/>

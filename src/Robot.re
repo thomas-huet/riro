@@ -46,4 +46,4 @@ let make = (~x, ~y, ~id, ~num_robots, ~send_parent, _children) => {
       onTouchCancel=onTouchEnd
     />
   }
-}
+};
