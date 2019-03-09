@@ -14,6 +14,13 @@ let default_options = {
   min_num_moves = 3;
 }
 
+let options_to_string opts =
+  Printf.sprintf "#h%02dw%02dr%02do%02dm%02d" opts.height opts.width opts.num_robots opts.num_walls opts.min_num_moves
+
+let options_of_string s =
+  Scanf.ksscanf s (fun _ _ -> default_options) "#h%02dw%02dr%02do%02dm%02d"
+    (fun height width num_robots num_walls min_num_moves -> { height; width; num_robots; num_walls; min_num_moves })
+
 type cell =
 | Empty
 | Wall

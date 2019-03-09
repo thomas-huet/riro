@@ -6,14 +6,32 @@ external add_keyboard_event_listener :
   (string, ReactEvent.Keyboard.t => unit) => unit =
   "addEventListener";
 
+[@bs.val]
+external push_history_state: (string, string, string) => unit =
+  "window.history.pushState";
+
+[@bs.val]
+external null: string = "null";
+
+let set_hash = (s) => push_history_state(null, null, s);
+
+[@bs.val]
+external hash: string = "location.hash";
+
 let component = ReasonReact.reducerComponent("Main");
 
 let make = (_children) => {
   ...component,
-  initialState: () => init(generate(default_options), default_options),
+  initialState: () => {
+      let opts = options_of_string(hash);
+      init(generate(opts), opts)
+    },
   reducer: (action, state) => switch(action) {
   | Open_settings => ReasonReact.Update({...state, settings_open: true})
-  | Change_settings(opts) => ReasonReact.Update({...state, options: opts})
+  | Change_settings(opts) => {
+      set_hash(options_to_string(opts));
+      ReasonReact.Update({...state, options: opts})
+    }
   | New => ReasonReact.Update(init(generate(state.options), state.options))
   | Restart => ReasonReact.Update(init(state.start, state.options))
   | Select_robot(r) => ReasonReact.Update({...state, selected_robot: r})
