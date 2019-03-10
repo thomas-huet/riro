@@ -28,9 +28,10 @@ let make = (_children) => {
     },
   reducer: (action, state) => switch(action) {
   | Open_settings => ReasonReact.Update({...state, settings_open: true})
+  | Close_settings => ReasonReact.Update({...state, settings_open: false})
   | Change_settings(opts) => {
       set_hash(options_to_string(opts));
-      ReasonReact.Update({...state, options: opts})
+      ReasonReact.Update(init(generate(opts), opts))
     }
   | New => ReasonReact.Update(init(generate(state.options), state.options))
   | Restart => ReasonReact.Update(init(state.start, state.options))
@@ -64,7 +65,7 @@ let make = (_children) => {
     }),
   render: ({state, send}) =>
     if (state.settings_open) {
-      <Settings send=send opts=state.options/>
+      <Settings send_parent=send opts=state.options/>
     } else if (winning(state.current)) {
       <EndMenu send=send num_moves={List.length(state.moves)}/>
     } else {

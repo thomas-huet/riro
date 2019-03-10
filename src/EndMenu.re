@@ -10,6 +10,6 @@ let make = (~send, ~num_moves, _children) => {
       <br/>
       <button onClick={_event => send(Restart)}> {ReasonReact.string("Try to do better")} </button>
       <button onClick={_event => send(New)}> {ReasonReact.string("New game")} </button>
-      <button onClick={_event => send(Open_settings)}> {ReasonReact.string("Settings")} </button>
+      <button onClick={_event => send(Open_settings)}> {ReasonReact.string("Change settings")} </button>
     </div>
 };

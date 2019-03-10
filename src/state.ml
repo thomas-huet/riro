@@ -20,6 +20,7 @@ let init position options = {
 
 type action =
 | Open_settings
+| Close_settings
 | Change_settings of options
 | New
 | Restart
