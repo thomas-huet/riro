@@ -71,6 +71,13 @@ let winning position =
   position.robots.(0) = position.target
 
 let find_solution position depth =
+  let dist position =
+    let ty, tx = position.target in
+    let ry, rx = position.robots.(0) in
+    (if ty = ry then 0 else 1)
+    +
+    (if tx = rx then 0 else 1)
+  in
   let q = Queue.create () in
   let h = Hashtbl.create 5 in
   Queue.push (depth, position) q;
@@ -86,7 +93,7 @@ let find_solution position depth =
         | None -> ()
         | Some position ->
           try Hashtbl.find h position with
-          Not_found -> begin
+          Not_found -> if dist position < depth then begin
             Queue.push (depth - 1, position) q;
             Hashtbl.add h position ();
           end
