@@ -5,16 +5,10 @@
     "build": "bsb -make-world",
     "start": "bsb -make-world -w",
     "clean": "bsb -clean-world",
-    "test": "echo \"Error: no test specified\" && exit 1",
     "webpack": "webpack -w",
-    "webpack:production": "NODE_ENV=production webpack",
-    "server": "webpack-dev-server"
+    "webpack:production": "NODE_ENV=production webpack"
   },
-  "keywords": [
-    "BuckleScript"
-  ],
-  "author": "",
-  "license": "MIT",
+  "author": "Thomas HUET",
   "dependencies": {
     "react": "^16.2.0",
     "react-dom": "^16.2.0",

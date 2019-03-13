@@ -6,17 +6,17 @@ external add_keyboard_event_listener :
   (string, ReactEvent.Keyboard.t => unit) => unit =
   "addEventListener";
 
-[@bs.val]
+[@bs.val] [@bs.scope ("window", "history")]
 external push_history_state: (string, string, string) => unit =
-  "window.history.pushState";
+  "pushState";
 
 [@bs.val]
 external null: string = "null";
 
 let set_hash = (s) => push_history_state(null, null, s);
 
-[@bs.val]
-external hash: string = "location.hash";
+[@bs.val] [@bs.scope "location"]
+external hash: string = "hash";
 
 let component = ReasonReact.reducerComponent("Main");
 
